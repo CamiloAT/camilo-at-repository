@@ -4,7 +4,6 @@ import Preloader from './components/Preloader/Preloader'
 import Hero from './components/Hero/Hero'
 import Particles from './components/Particles/Particles'
 import Dock from './components/Dock/Dock'
-import Cursor from './components/Cursor/Cursor'
 import Story from './sections/Story/Story'
 import Work from './sections/Work/Work'
 import Craft from './sections/Craft/Craft'
@@ -34,7 +33,6 @@ function App() {
 
       {!loading && (
         <>
-          <Cursor />
           <Particles count={25} />
           <Dock />
 

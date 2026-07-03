@@ -141,7 +141,6 @@
   padding: 0.8rem 1rem;
   outline: none;
   transition: border-color 0.3s, background 0.3s;
-  cursor: none;
 }
 
 .outro__input:focus,
@@ -171,7 +170,6 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   transition: background 0.3s, color 0.3s;
-  cursor: none;
 }
 
 .outro__submit:hover {

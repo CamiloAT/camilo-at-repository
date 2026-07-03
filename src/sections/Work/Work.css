@@ -56,7 +56,6 @@
   gap: var(--space-lg);
   padding: var(--space-xl) 0;
   border-bottom: 1px solid var(--border);
-  cursor: none;
   transition: background 0.4s var(--ease-out-expo);
 }
 
