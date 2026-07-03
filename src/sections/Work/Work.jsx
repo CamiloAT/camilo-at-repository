@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import './Work.css'
 
@@ -8,49 +8,106 @@ const PROJECTS = [
     title: 'Nexus Platform',
     category: 'Fullstack · React · Node.js',
     year: '2026',
-    description: 'Plataforma de gestión de datos en tiempo real para empresas de logística. Arquitectura de microservicios con WebSocket y dashboards interactivos.',
+    description: 'Plataforma de gestión de datos en tiempo real para empresas de logística.',
+    fullDescription: 'Plataforma de gestión de datos en tiempo real para empresas de logística. Arquitectura de microservicios con WebSocket y dashboards interactivos. El sistema permite monitorear flotas, optimizar rutas y generar reportes automáticos en tiempo real.',
     accent: '#c4956a',
     tags: ['React', 'Node.js', 'WebSocket', 'PostgreSQL'],
+    github: 'https://github.com/camiloat/nexus-platform',
+    demo: 'https://nexus-platform.demo.com',
+    images: ['/placeholder-1.svg', '/placeholder-2.svg', '/placeholder-3.svg'],
   },
   {
     id: 2,
     title: 'Sentinel API',
     category: 'Backend · Seguridad',
     year: '2025',
-    description: 'Sistema de monitoreo y alertas para infraestructura cloud. Detección de anomalías con machine learning y notificaciones en tiempo real.',
+    description: 'Sistema de monitoreo y alertas para infraestructura cloud.',
+    fullDescription: 'Sistema de monitoreo y alertas para infraestructura cloud. Detección de anomalías con machine learning y notificaciones en tiempo real. Incluye dashboard de métricas, sistema de reglas personalizables y integración con múltiples proveedores cloud.',
     accent: '#8b6914',
     tags: ['Python', 'FastAPI', 'Redis', 'Docker'],
+    github: 'https://github.com/camiloat/sentinel-api',
+    demo: 'https://sentinel-api.demo.com',
+    images: ['/placeholder-1.svg', '/placeholder-2.svg', '/placeholder-3.svg'],
   },
   {
     id: 3,
     title: 'Verde Urbano',
     category: 'Frontend · UX/UI',
     year: '2025',
-    description: 'Aplicación web para rastreo de huella de carbono personal. Visualización de datos ambientales con gráficas interactivas y gamificación.',
+    description: 'Aplicación web para rastreo de huella de carbono personal.',
+    fullDescription: 'Aplicación web para rastreo de huella de carbono personal. Visualización de datos ambientales con gráficas interactivas y gamificación. Los usuarios pueden registrar sus actividades diarias, comparar con la comunidad y ganar logros por acciones sostenibles.',
     accent: '#6b8a5e',
     tags: ['React', 'D3.js', 'Tailwind', 'Supabase'],
+    github: 'https://github.com/camiloat/verde-urbano',
+    demo: 'https://verde-urbano.demo.com',
+    images: ['/placeholder-1.svg', '/placeholder-2.svg', '/placeholder-3.svg'],
   },
   {
     id: 4,
     title: 'Flux Studio',
     category: 'Creative Dev · WebGL',
     year: '2024',
-    description: 'Herramienta de visualización musical con audio-reactive graphics. Experiencia inmersiva que sincroniza sonido y movimiento.',
+    description: 'Herramienta de visualización musical con audio-reactive graphics.',
+    fullDescription: 'Herramienta de visualización musical con audio-reactive graphics. Experiencia inmersiva que sincroniza sonido y movimiento. Utiliza WebGL para renderizar geometrías 3D que responden al audio en tiempo real, creando una experiencia visual única para cada canción.',
     accent: '#7c5cbf',
     tags: ['Three.js', 'Web Audio API', 'GLSL', 'Vite'],
+    github: 'https://github.com/camiloat/flux-studio',
+    demo: 'https://flux-studio.demo.com',
+    images: ['/placeholder-1.svg', '/placeholder-2.svg', '/placeholder-3.svg'],
   },
 ]
 
 const Work = () => {
   const sectionRef = useRef(null)
   const [activeProject, setActiveProject] = useState(null)
+  const [selectedProject, setSelectedProject] = useState(null)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [carouselIndices, setCarouselIndices] = useState({})
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
   })
 
+  // Auto-play carousels
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCarouselIndices(prev => {
+        const newIndices = { ...prev }
+        PROJECTS.forEach((project) => {
+          const currentIndex = newIndices[project.id] || 0
+          newIndices[project.id] = (currentIndex + 1) % project.images.length
+        })
+        return newIndices
+      })
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
+
   const headerY = useTransform(scrollYProgress, [0, 0.3], [40, 0])
   const headerOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1])
+
+  const openModal = (project) => {
+    setSelectedProject(project)
+    setCurrentImageIndex(0)
+    document.body.style.overflow = 'hidden'
+  }
+
+  const closeModal = () => {
+    setSelectedProject(null)
+    document.body.style.overflow = ''
+  }
+
+  const nextImage = () => {
+    if (selectedProject) {
+      setCurrentImageIndex((prev) => (prev + 1) % selectedProject.images.length)
+    }
+  }
+
+  const prevImage = () => {
+    if (selectedProject) {
+      setCurrentImageIndex((prev) => (prev - 1 + selectedProject.images.length) % selectedProject.images.length)
+    }
+  }
 
   return (
     <section id="work" className="work" ref={sectionRef}>
@@ -74,7 +131,7 @@ const Work = () => {
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
-            The Work
+            My Projects
           </motion.h2>
         </motion.div>
 
@@ -91,26 +148,91 @@ const Work = () => {
               onMouseLeave={() => setActiveProject(null)}
               style={{ '--project-accent': project.accent }}
             >
-              <div className="work__project-index">
-                <span className="work__project-number">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-              </div>
-
-              <div className="work__project-content">
-                <div className="work__project-meta">
-                  <span className="work__project-category">{project.category}</span>
-                  <span className="work__project-year">{project.year}</span>
+              <div className="work__project-left">
+                <div className="work__project-index">
+                  <span className="work__project-number">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
                 </div>
 
-                <h3 className="work__project-title">{project.title}</h3>
+                <div className="work__project-content">
+                  <div className="work__project-meta">
+                    <span className="work__project-category">{project.category}</span>
+                    <span className="work__project-year">{project.year}</span>
+                  </div>
 
-                <p className="work__project-desc">{project.description}</p>
+                  <h3 className="work__project-title">{project.title}</h3>
 
-                <div className="work__project-tags">
-                  {project.tags.map((tag) => (
-                    <span key={tag} className="work__project-tag">{tag}</span>
-                  ))}
+                  <p className="work__project-desc">{project.description}</p>
+
+                  <div className="work__project-tags">
+                    {project.tags.map((tag) => (
+                      <span key={tag} className="work__project-tag">{tag}</span>
+                    ))}
+                  </div>
+
+                  <div className="work__project-actions">
+                    <motion.button
+                      className="work__project-btn"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => openModal(project)}
+                    >
+                      <span className="work__project-btn-text">More Info</span>
+                    </motion.button>
+                    <motion.a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="work__project-btn work__project-btn--icon"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                      </svg>
+                    </motion.a>
+                    <motion.a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="work__project-btn work__project-btn--icon"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                      </svg>
+                    </motion.a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="work__project-right">
+                <div className="work__project-carousel">
+                  <div className="work__project-carousel-inner">
+                    {project.images.map((img, imgIndex) => (
+                      <div
+                        key={imgIndex}
+                        className={`work__project-slide ${imgIndex === (carouselIndices[project.id] || 0) ? 'work__project-slide--active' : ''}`}
+                      >
+                        <div className="work__project-image-placeholder">
+                          <span className="work__project-image-text">{project.title}</span>
+                          <span className="work__project-image-number">Screenshot {imgIndex + 1}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="work__project-carousel-dots">
+                    {project.images.map((_, dotIndex) => (
+                      <span
+                        key={dotIndex}
+                        className={`work__project-dot ${dotIndex === (carouselIndices[project.id] || 0) ? 'work__project-dot--active' : ''}`}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -131,6 +253,84 @@ const Work = () => {
           ))}
         </div>
       </div>
+
+      {/* Modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            className="work__modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeModal}
+          >
+            <motion.div
+              className="work__modal"
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className="work__modal-close" onClick={closeModal}>×</button>
+
+              <div className="work__modal-header">
+                <span className="work__modal-category">{selectedProject.category}</span>
+                <h3 className="work__modal-title">{selectedProject.title}</h3>
+                <span className="work__modal-year">{selectedProject.year}</span>
+              </div>
+
+              <div className="work__modal-body">
+                <div className="work__modal-carousel">
+                  <button className="work__modal-arrow work__modal-arrow--left" onClick={prevImage}>‹</button>
+                  <div className="work__modal-image">
+                    <div className="work__modal-image-placeholder">
+                      <span>Screenshot {currentImageIndex + 1}</span>
+                    </div>
+                  </div>
+                  <button className="work__modal-arrow work__modal-arrow--right" onClick={nextImage}>›</button>
+                  <div className="work__modal-dots">
+                    {selectedProject.images.map((_, dotIndex) => (
+                      <span
+                        key={dotIndex}
+                        className={`work__modal-dot ${dotIndex === currentImageIndex ? 'work__modal-dot--active' : ''}`}
+                        onClick={() => setCurrentImageIndex(dotIndex)}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="work__modal-info">
+                  <p className="work__modal-desc">{selectedProject.fullDescription}</p>
+
+                  <div className="work__modal-tags">
+                    {selectedProject.tags.map((tag) => (
+                      <span key={tag} className="work__modal-tag">{tag}</span>
+                    ))}
+                  </div>
+
+                  <div className="work__modal-actions">
+                    <a href={selectedProject.github} target="_blank" rel="noopener noreferrer" className="work__modal-btn">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                      </svg>
+                      View on GitHub
+                    </a>
+                    <a href={selectedProject.demo} target="_blank" rel="noopener noreferrer" className="work__modal-btn work__modal-btn--primary">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                      </svg>
+                      Live Demo
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
