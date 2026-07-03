@@ -1,27 +1,15 @@
 import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import './Hero.css'
-
-const TAGLINE = 'Ingeniero en Sistemas · Desarrollador Fullstack'
 
 const Hero = () => {
   const [revealed, setRevealed] = useState(false)
-  const [taglineIndex, setTaglineIndex] = useState(0)
   const sectionRef = useRef(null)
 
   useEffect(() => {
     const timer = setTimeout(() => setRevealed(true), 300)
     return () => clearTimeout(timer)
   }, [])
-
-  useEffect(() => {
-    if (!revealed) return
-    if (taglineIndex >= TAGLINE.length) return
-    const timer = setTimeout(() => {
-      setTaglineIndex(prev => prev + 1)
-    }, 30)
-    return () => clearTimeout(timer)
-  }, [revealed, taglineIndex])
 
   return (
     <section className="hero" ref={sectionRef}>
@@ -49,8 +37,8 @@ const Hero = () => {
             animate={{ clipPath: revealed ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)' }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
           >
-            <span className="hero__name-line hero__name-line--1">Camilo Andrés</span>
-            <span className="hero__name-line hero__name-line--2">Arias Tenjo</span>
+            <span className="hero__name-line">Camilo Andrés </span>
+            <span className="hero__name-line hero__name-line--accent">Arias Tenjo</span>
           </motion.h1>
         </div>
 
@@ -61,7 +49,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 1.6, ease: [0.16, 1, 0.3, 1] }}
         >
           <span className="hero__pseudo-bracket">[</span>
-          <span className="hero__pseudo-text">Camilo AT</span>
+          <span className="hero__pseudo-text">CAAT</span>
           <span className="hero__pseudo-bracket">]</span>
         </motion.div>
 
@@ -71,10 +59,9 @@ const Hero = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 2.0 }}
         >
-          <span className="hero__tagline-text">
-            {TAGLINE.slice(0, taglineIndex)}
-            <span className="hero__cursor">|</span>
-          </span>
+          <span className="hero__tagline-top">Ingeniero de Sistemas y Computación</span>
+          <span className="hero__tagline-line" />
+          <span className="hero__tagline-bottom">Desarrollador Fullstack</span>
         </motion.div>
 
         <motion.div
