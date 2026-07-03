@@ -60,7 +60,7 @@ const Preloader = ({ onComplete }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
               >
-                CA
+                CAAT
               </motion.span>
               <motion.div
                 className="preloader__line"

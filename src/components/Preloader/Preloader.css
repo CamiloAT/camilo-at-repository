@@ -23,25 +23,26 @@
 }
 
 .preloader__count {
-  font-family: var(--font-display);
+  font-family: 'PT Serif', Georgia, serif;
   font-size: clamp(6rem, 15vw, 12rem);
-  font-weight: 300;
+  font-weight: 400;
   color: var(--accent-primary);
   letter-spacing: -0.02em;
   line-height: 1;
   position: relative;
+  transform: translateY(-20px);
 }
 
 .preloader__count::after {
   content: '';
   position: absolute;
-  bottom: 0.1em;
+  bottom: -0.3em;
   left: 50%;
   transform: translateX(-50%);
-  width: 60%;
-  height: 1px;
+  width: 80%;
+  height: 2px;
   background: var(--accent-primary);
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
 .preloader__title {
@@ -61,7 +62,7 @@
 }
 
 .preloader__line {
-  width: 120px;
+  width: 180px;
   height: 1px;
   background: var(--accent-primary);
   transform-origin: left center;
