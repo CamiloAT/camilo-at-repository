@@ -72,7 +72,7 @@ const Story = () => {
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.7, delay: 0.5 }}
             >
-              Desde muy joven siempre me he considerado una persona bastante curiosa, que siempre lleva sus ambiciones al límite, y siempre intenta completar sus objetivos de la mejor forma posible sin importar los contratiempos que se presenten en el camino.
+              Desde muy joven me he considerado una persona bastante curiosa, que siempre lleva sus ambiciones al límite, e intenta completar sus objetivos de la mejor forma posible sin importar los contratiempos que se presenten en el camino.
             </motion.p>
           </motion.div>
 
