@@ -93,6 +93,26 @@ const MORE_PROJECTS = [
     ],
   },
   {
+    id: 'space-orbit-dynamics',
+    title: 'Space Orbit Dynamics',
+    category: 'Simulacion · Python · NumPy',
+    year: '2026',
+    description: 'Simulador gravitacional N-Body en tiempo real del sistema Sol-Tierra-Luna con impactos de asteroides e integrador RK4.',
+    fullDescription: 'Simulador gravitacional N-Body en tiempo real que modela el sistema Sol-Tierra-Luna con impactos de asteroides interactivos, impulsado por un integrador numerico Runge-Kutta de cuarto orden implementado a mano. Incluye tracking en tiempo real de conservacion de energia mecanica, eventos dinamicos de asteroides con trayectorias hiperbolicas y efectos de explosion animados, controles interactivos con sliders para velocidades y paso de integracion, y una visualizacion pulida con tema de espacio profundo, estrellas estaticas, halos brillantes, capas de atmosfera y estelas de movimiento.',
+    logo: null,
+    accent: 'radial-gradient(circle at 2% 50%, rgba(255,255,255,1) 0.5px, transparent 0.5px), radial-gradient(circle at 7% 50%, rgba(255,255,255,0.6) 0.5px, transparent 0.5px), radial-gradient(circle at 12% 50%, rgba(255,255,255,0.9) 0.5px, transparent 0.5px), radial-gradient(circle at 18% 50%, rgba(255,255,255,0.5) 0.5px, transparent 0.5px), radial-gradient(circle at 23% 50%, rgba(255,255,255,1) 0.5px, transparent 0.5px), radial-gradient(circle at 29% 50%, rgba(255,255,255,0.7) 0.5px, transparent 0.5px), radial-gradient(circle at 34% 50%, rgba(255,255,255,0.8) 0.5px, transparent 0.5px), radial-gradient(circle at 40% 50%, rgba(255,255,255,0.5) 0.5px, transparent 0.5px), radial-gradient(circle at 45% 50%, rgba(255,255,255,1) 0.5px, transparent 0.5px), radial-gradient(circle at 51% 50%, rgba(255,255,255,0.6) 0.5px, transparent 0.5px), radial-gradient(circle at 56% 50%, rgba(255,255,255,0.9) 0.5px, transparent 0.5px), radial-gradient(circle at 62% 50%, rgba(255,255,255,0.5) 0.5px, transparent 0.5px), radial-gradient(circle at 67% 50%, rgba(255,255,255,1) 0.5px, transparent 0.5px), radial-gradient(circle at 73% 50%, rgba(255,255,255,0.7) 0.5px, transparent 0.5px), radial-gradient(circle at 78% 50%, rgba(255,255,255,0.8) 0.5px, transparent 0.5px), radial-gradient(circle at 84% 50%, rgba(255,255,255,0.5) 0.5px, transparent 0.5px), radial-gradient(circle at 90% 50%, rgba(255,255,255,1) 0.5px, transparent 0.5px), radial-gradient(circle at 96% 50%, rgba(255,255,255,0.6) 0.5px, transparent 0.5px), #1e1547',
+    tags: ['Python', 'NumPy', 'Matplotlib', 'RK4', 'N-Body'],
+    collaborators: [
+      { name: 'Jose Luis Ortega Castillo', github: 'https://github.com/JoseOrtegaUPTC' },
+    ],
+    github: 'https://github.com/CamiloAT/space-orbit-dynamics',
+    demo: '',
+    images: [
+      '/projects/space-orbit-dynamics/app-photo-1.webp',
+      '/projects/space-orbit-dynamics/app-photo-2.webp',
+    ],
+  },
+  {
     id: 'sentinel',
     title: 'Sentinel API',
     category: 'Backend · Seguridad',
