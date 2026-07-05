@@ -19,7 +19,7 @@ const Preloader = ({ onComplete }) => {
       const timer = setTimeout(() => {
         setPhase('done')
         onComplete()
-      }, 1800)
+      }, 3000)
       return () => clearTimeout(timer)
     }
   }, [count, phase, onComplete])
@@ -29,10 +29,12 @@ const Preloader = ({ onComplete }) => {
       {phase !== 'done' && (
         <motion.div
           className="preloader"
+          initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="preloader__film-lines" />
+          <div className="preloader__noise" />
 
           {phase === 'counting' && (
             <motion.div
@@ -48,38 +50,57 @@ const Preloader = ({ onComplete }) => {
           )}
 
           {phase === 'title' && (
-            <motion.div
-              className="preloader__title"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-            >
-              <motion.span
-                className="preloader__initials"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-              >
-                CAAT
-              </motion.span>
+            <>
               <motion.div
-                className="preloader__line"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              />
-              <motion.span
-                className="preloader__subtitle"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
+                className="preloader__film-strip preloader__film-strip--left"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
               >
-                CAMILO AT
-              </motion.span>
-            </motion.div>
+                <div className="preloader__film-strip-inner" />
+              </motion.div>
+
+              <motion.div
+                className="preloader__film-strip preloader__film-strip--right"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="preloader__film-strip-inner" />
+              </motion.div>
+
+              <motion.div
+                className="preloader__title"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6 }}
+              >
+                <motion.span
+                  className="preloader__initials"
+                  initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  CAAT
+                </motion.span>
+                <motion.div
+                  className="preloader__line"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                />
+                <motion.span
+                  className="preloader__subtitle"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                >
+                  CAMILO AT
+                </motion.span>
+              </motion.div>
+            </>
           )}
 
-          {/* Film flicker overlay */}
           <div className="preloader__flicker" />
         </motion.div>
       )}
