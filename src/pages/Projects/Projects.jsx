@@ -277,6 +277,58 @@ Evaluacion : BUENO
      32 |    20 |   100.0% |    40.8% | Alta`,
   },
   {
+    id: 'classic-crypto',
+    title: 'Classical Cryptography System',
+    category: 'Cryptography · Python · CLI',
+    year: '2026',
+    description: 'Sistema CLI de cifrado y descifrado con algoritmos de Caesar y Vigenere sobre un alfabeto extendido de 99 simbolos.',
+    fullDescription: 'Sistema de cifrado y descifrado por linea de comandos que implementa los algoritmos de Caesar y Vigenere sobre un alfabeto extendido de 99 simbolos incluyendo letras, digitos, puntuacion y caracteres especiales. Soporta normalizacion flexible (strict/lax), entrada y salida por archivos o stdin/stdout, y incluye una suite de pruebas automatizadas con 22 casos de prueba. Implementado en Python puro sin dependencias externas.',
+    logo: null,
+    accent: '#a1a1aa',
+    tags: ['Python', 'Caesar', 'Vigenere', 'CLI'],
+    collaborators: [
+      { name: 'Diego Fernando Aguirre Tenjo', github: 'https://github.com/elcokiin' },
+      { name: 'Katlyn Jennelis Galvis Rodriguez', github: 'https://github.com/Katlyng' },
+    ],
+    github: 'https://github.com/CamiloAT/classic-cryptographic-algorithms',
+    demo: '',
+    images: [],
+    cliOutput: `# CIFRADOR CLASICO — Caesar & Vigenere
+# Alfabeto extendido: 99 simbolos (A-Z, a-z, 0-9, puntuacion, especiales)
+
+# Ejecucion 1: Cifrado con Caesar
+python cipher.py --cipher caesar --mode enc --key 5 \\
+    --in sample_input.txt --out encrypted.txt --normalize lax
+
+  Entrada  : "Hola, Mundo! 2026."
+  Clave    : 5 (desplazamiento)
+  Salida   : "Mtfq%1Rjsi%35472"
+
+# Ejecucion 2: Descifrado con Vigenere
+python cipher.py --cipher vigenere --mode dec --key secreto \\
+    --in encrypted.txt --out decrypted.txt --normalize lax
+
+  Entrada  : "Mtfq%1Rjsi%35472"
+  Clave    : "secreto"
+  Salida   : "Hola, Mundo! 2026."
+
+# Ejecucion 3: Suite de pruebas
+python tests.py
+
+  Tests ejecutados : 22
+  Tests aprobados  : 22
+  Tests fallidos    : 0
+  Resultado        : TODOS PASARON ✓
+
+# Resumen tecnico
+Alfabeto   : 99 caracteres (A-Z, a-z, 0-9, 33 puntuacion/especiales)
+Caesar     : sustitucion monoalfabetica, clave entera (shift)
+Vigenere   : sustitucion polialfabetica, clave de texto
+Normalizar : strict (elimina invalidos) | lax (preserva todo)
+I/O        : archivos (--in/--out) o stdin/stdout
+Dependencias: ninguna (stdlib puro)`,
+  },
+  {
     id: 'sentinel',
     title: 'Sentinel API',
     category: 'Backend · Seguridad',
