@@ -6,7 +6,6 @@ const NAV_ITEMS = [
   { id: 'story', label: 'I', title: 'The Story' },
   { id: 'work', label: 'II', title: 'The Work' },
   { id: 'craft', label: 'III', title: 'The Craft' },
-  { id: 'outro', label: 'IV', title: 'Contact' },
 ]
 
 const Dock = () => {
