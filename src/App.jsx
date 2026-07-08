@@ -8,6 +8,8 @@ import Dock from './components/Dock/Dock'
 import Story from './sections/Story/Story'
 import Work from './sections/Work/Work'
 import Craft from './sections/Craft/Craft'
+import Certifications from './sections/Certifications/Certifications'
+import Interests from './sections/Interests/Interests'
 import Outro from './sections/Outro/Outro'
 import Projects from './pages/Projects/Projects'
 import './App.css'
@@ -23,6 +25,8 @@ function HomePage() {
         <Story />
         <Work />
         <Craft />
+        <Certifications />
+        <Interests />
         <Outro />
       </main>
     </>

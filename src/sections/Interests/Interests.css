@@ -1,0 +1,189 @@
+.interests {
+  position: relative;
+  min-height: 100vh;
+  padding: var(--space-2xl) var(--gutter);
+  overflow: hidden;
+}
+
+.interests__content {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.interests__header {
+  margin-bottom: var(--space-md);
+  position: relative;
+  padding-top: 2rem;
+}
+
+.interests__eyebrow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.interests__eyebrow-line {
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--accent-primary);
+  opacity: 0.4;
+}
+
+.interests__eyebrow-text {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+}
+
+.interests__title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 300;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: var(--space-lg) 0;
+}
+
+.interests__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin-bottom: var(--space-2xl);
+  background: var(--border);
+}
+
+.interests__card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-xl);
+  background: var(--bg-surface);
+  cursor: default;
+  transition: background 0.3s;
+}
+
+.interests__card:hover {
+  background: var(--bg-elevated);
+}
+
+.interests__card-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-primary);
+  margin-bottom: var(--space-md);
+}
+
+.interests__card-name {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.interests__card-desc {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.interests__playlist {
+  max-width: 500px;
+}
+
+.interests__playlist-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--border);
+}
+
+.interests__playlist-icon {
+  color: var(--accent-primary);
+}
+
+.interests__playlist-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.interests__playlist-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.interests__track {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid rgba(196, 149, 106, 0.06);
+}
+
+.interests__track:last-child {
+  border-bottom: none;
+}
+
+.interests__track-num {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  min-width: 20px;
+}
+
+.interests__track-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.interests__track-title {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+.interests__track-artist {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .interests {
+    padding: var(--space-xl) var(--gutter);
+  }
+
+  .interests__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .interests__card {
+    padding: var(--space-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .interests__grid {
+    grid-template-columns: 1fr;
+  }
+}
