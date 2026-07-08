@@ -60,7 +60,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1px;
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-md);
 }
 
 .interests__card {
@@ -307,7 +307,7 @@
 .interests__layout {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xl);
+  gap: var(--space-lg);
 }
 
 .interests__music-section {
