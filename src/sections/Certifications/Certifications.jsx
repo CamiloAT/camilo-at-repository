@@ -5,32 +5,32 @@ import './Certifications.css'
 
 const CERTIFICATIONS = [
   {
-    name: 'Network Defense',
+    name: 'Introduction to Cybersecurity',
     issuer: 'Cisco',
-    date: 'Ene. 2026',
-    skills: ['Defensa de Redes'],
-    url: 'https://www.credly.com/badges/5e4dcc05-b11d-4670-ba1a-b8611941c187/public_url',
+    date: 'Dic. 2025',
+    skills: ['Ciberseguridad', 'Gestión de amenazas', 'Vulnerabilidades'],
+    url: 'https://www.credly.com/badges/412e5360-bb75-48bf-8a8b-cf770a2e6f80',
   },
   {
     name: 'Endpoint Security',
     issuer: 'Cisco',
     date: 'Dic. 2025',
     skills: ['Seguridad de punto final'],
-    url: 'https://www.credly.com/earner/earned/badge/bb393cbb-bb3d-44f2-b071-3ca274c840b9',
+    url: 'https://www.credly.com/badges/bb393cbb-bb3d-44f2-b071-3ca274c840b9',
+  },
+  {
+    name: 'Network Defense',
+    issuer: 'Cisco',
+    date: 'Ene. 2026',
+    skills: ['Defensa de Redes'],
+    url: 'https://www.credly.com/badges/5e4dcc05-b11d-4670-ba1a-b8611941c187',
   },
   {
     name: 'Cyber Threat Management',
     issuer: 'Cisco',
     date: 'Ene. 2026',
     skills: ['Análisis de amenazas', 'Seguridad de puntos finales', 'Detección de amenazas'],
-    url: 'https://www.credly.com/earner/earned/badge/47b43e13-a6ff-4c34-b23d-1a9f11a27f49',
-  },
-  {
-    name: 'Introduction to Cybersecurity',
-    issuer: 'Cisco',
-    date: 'Dic. 2025',
-    skills: ['Ciberseguridad', 'Gestión de amenazas', 'Vulnerabilidades'],
-    url: 'https://www.credly.com/earner/earned/badge/412e5360-bb75-48bf-8a8b-cf770a2e6f80',
+    url: 'https://www.credly.com/badges/47b43e13-a6ff-4c34-b23d-1a9f11a27f49',
   },
 ]
 
@@ -98,7 +98,9 @@ const Certifications = () => {
                   ))}
                 </div>
               </div>
-              <span className="certs__card-arrow">→</span>
+              <span className="certs__card-link">
+                Ver certificado <span className="certs__card-arrow">→</span>
+              </span>
             </motion.a>
           ))}
         </div>

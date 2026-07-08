@@ -60,6 +60,7 @@
   display: flex;
   flex-direction: column;
   gap: 1px;
+  margin-left: -2rem;
 }
 
 .certs__card {
@@ -67,7 +68,7 @@
   align-items: center;
   gap: var(--space-lg);
   padding: var(--space-lg) var(--space-xl);
-  background: var(--bg-surface);
+  background: transparent;
   border: none;
   text-decoration: none;
   transition: background 0.3s;
@@ -75,7 +76,7 @@
 }
 
 .certs__card:hover {
-  background: var(--bg-elevated);
+  background: var(--bg-surface);
 }
 
 .certs__card-icon {
@@ -141,15 +142,27 @@
   letter-spacing: 0.05em;
 }
 
-.certs__card-arrow {
+.certs__card-link {
   flex-shrink: 0;
-  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
   color: var(--text-muted);
-  transition: color 0.3s, transform 0.3s;
+  letter-spacing: 0.05em;
+  transition: color 0.3s;
+}
+
+.certs__card:hover .certs__card-link {
+  color: var(--accent-primary);
+}
+
+.certs__card-arrow {
+  transition: transform 0.3s;
 }
 
 .certs__card:hover .certs__card-arrow {
-  color: var(--accent-primary);
   transform: translateX(4px);
 }
 
