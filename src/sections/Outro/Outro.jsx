@@ -135,7 +135,7 @@ const Outro = () => {
                 </p>
 
                 <div className="easter-egg__heart">
-                  <svg viewBox="0 0 100 100" className="easter-egg__heart-svg">
+                  <svg viewBox="-5 -5 110 105" className="easter-egg__heart-svg">
                     <path
                       d="M50 88 C25 65, 0 45, 0 28 C0 10, 14 0, 28 0 C38 0, 46 6, 50 14 C54 6, 62 0, 72 0 C86 0, 100 10, 100 28 C100 45, 75 65, 50 88Z"
                       fill="none"
