@@ -620,8 +620,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(10, 10, 10, 0.8);
-  backdrop-filter: blur(4px);
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(8px) saturate(0.5);
+  -webkit-backdrop-filter: blur(8px) saturate(0.5);
 }
 
 .playlist-modal__content {

@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { FaMusic, FaCode, FaHeadphones, FaPlay, FaPause, FaGuitar, FaWalking, FaBroadcastTower, FaStepBackward, FaStepForward, FaTimes, FaBars } from 'react-icons/fa'
 import './Interests.css'
@@ -82,6 +83,11 @@ const Interests = () => {
       delete window.onYouTubeIframeAPIReady
     }
   }, [])
+
+  useEffect(() => {
+    document.body.style.overflow = isPlaylistOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [isPlaylistOpen])
 
   const playTrack = useCallback((index) => {
     if (!playerRef.current) return
@@ -315,58 +321,61 @@ const Interests = () => {
         )}
       </AnimatePresence>
 
-      <AnimatePresence>
-        {isPlaylistOpen && (
-          <motion.div
-            className="playlist-modal"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setIsPlaylistOpen(false)}
-          >
+      {createPortal(
+        <AnimatePresence>
+          {isPlaylistOpen && (
             <motion.div
-              className="playlist-modal__content"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
+              className="playlist-modal"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsPlaylistOpen(false)}
             >
-              <div className="playlist-modal__header">
-                <FaBroadcastTower size={14} className="playlist-modal__icon" />
-                <span className="playlist-modal__title">Playlist</span>
-                <button className="playlist-modal__close" onClick={() => setIsPlaylistOpen(false)}>
-                  <FaTimes size={14} />
-                </button>
-              </div>
+              <motion.div
+                className="playlist-modal__content"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="playlist-modal__header">
+                  <FaBroadcastTower size={14} className="playlist-modal__icon" />
+                  <span className="playlist-modal__title">Playlist</span>
+                  <button className="playlist-modal__close" onClick={() => setIsPlaylistOpen(false)}>
+                    <FaTimes size={14} />
+                  </button>
+                </div>
 
-              <div className="playlist-modal__list">
-                {PLAYLIST.map((item, index) => (
-                  <div
-                    key={item.title}
-                    className={`playlist-modal__item ${index === currentTrack ? 'playlist-modal__item--active' : ''}`}
-                    onClick={() => toggleTrack(index)}
-                  >
-                    <div className="playlist-modal__item-left">
-                      {index === currentTrack && isPlaying ? (
-                        <Equalizer />
-                      ) : (
-                        <span className="playlist-modal__item-num">{String(index + 1).padStart(2, '0')}</span>
-                      )}
-                      <div className="playlist-modal__item-info">
-                        <span className="playlist-modal__item-title">{item.title}</span>
-                        <span className="playlist-modal__item-artist">{item.artist}</span>
+                <div className="playlist-modal__list">
+                  {PLAYLIST.map((item, index) => (
+                    <div
+                      key={item.title}
+                      className={`playlist-modal__item ${index === currentTrack ? 'playlist-modal__item--active' : ''}`}
+                      onClick={() => toggleTrack(index)}
+                    >
+                      <div className="playlist-modal__item-left">
+                        {index === currentTrack && isPlaying ? (
+                          <Equalizer />
+                        ) : (
+                          <span className="playlist-modal__item-num">{String(index + 1).padStart(2, '0')}</span>
+                        )}
+                        <div className="playlist-modal__item-info">
+                          <span className="playlist-modal__item-title">{item.title}</span>
+                          <span className="playlist-modal__item-artist">{item.artist}</span>
+                        </div>
                       </div>
+                      <button className="playlist-modal__item-play" onClick={(e) => { e.stopPropagation(); toggleTrack(index); }}>
+                        {index === currentTrack && isPlaying ? <FaPause size={10} /> : <FaPlay size={10} />}
+                      </button>
                     </div>
-                    <button className="playlist-modal__item-play" onClick={(e) => { e.stopPropagation(); toggleTrack(index); }}>
-                      {index === currentTrack && isPlaying ? <FaPause size={10} /> : <FaPlay size={10} />}
-                    </button>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </section>
   )
 }
