@@ -1,10 +1,39 @@
-import { motion } from 'framer-motion'
+import { useState, useRef, useCallback, useEffect } from 'react'
+import { createPortal } from 'react-dom'
+import { motion, AnimatePresence } from 'framer-motion'
 import { SiGithub } from 'react-icons/si'
-import { FaLinkedin } from 'react-icons/fa'
+import { FaLinkedin, FaTimes } from 'react-icons/fa'
 import './Outro.css'
 
+const CLICK_THRESHOLD = 15
+const CLICK_WINDOW = 4000
+
 const Outro = () => {
+  const [showEasterEgg, setShowEasterEgg] = useState(false)
+  const clicksRef = useRef([])
+
+  const handleFooterClick = useCallback(() => {
+    const now = Date.now()
+    clicksRef.current = clicksRef.current.filter(t => now - t < CLICK_WINDOW)
+    clicksRef.current.push(now)
+
+    if (clicksRef.current.length >= CLICK_THRESHOLD) {
+      clicksRef.current = []
+      setShowEasterEgg(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (showEasterEgg) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [showEasterEgg])
+
   return (
+    <>
     <footer className="outro">
       <motion.div
         className="outro__quote"
@@ -23,7 +52,7 @@ const Outro = () => {
 
       <div className="outro__footer-line" />
 
-      <div className="outro__footer">
+      <div className="outro__footer" onClick={handleFooterClick}>
         <div className="outro__footer-left">
           <motion.h2
             className="outro__name"
@@ -76,6 +105,54 @@ const Outro = () => {
         </div>
       </div>
     </footer>
+
+      {createPortal(
+        <AnimatePresence>
+          {showEasterEgg && (
+            <motion.div
+              className="easter-egg"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              <motion.div
+                className="easter-egg__card"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                transition={{ duration: 0.4, type: 'spring', damping: 20 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button className="easter-egg__close" onClick={() => setShowEasterEgg(false)}>
+                  <FaTimes size={14} />
+                </button>
+
+                <span className="easter-egg__label">Dedicado a</span>
+
+                <p className="easter-egg__text">
+                  A la personita que estuvo atenta de escuchar y opinar con entusiasmo a lo largo de todo el proceso de creación de la pagina
+                </p>
+
+                <div className="easter-egg__heart">
+                  <svg viewBox="0 0 100 100" className="easter-egg__heart-svg">
+                    <path
+                      d="M50 88 C25 65, 0 45, 0 28 C0 10, 14 0, 28 0 C38 0, 46 6, 50 14 C54 6, 62 0, 72 0 C86 0, 100 10, 100 28 C100 45, 75 65, 50 88Z"
+                      fill="none"
+                      stroke="#8B6F47"
+                      strokeWidth="2.5"
+                    />
+                  </svg>
+                </div>
+
+                <p className="easter-egg__name">Brenda, mi noviecita hermosa, te quiero muchoooo</p>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
+    </>
   )
 }
 
