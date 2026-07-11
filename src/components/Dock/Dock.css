@@ -7,6 +7,10 @@
   pointer-events: auto;
 }
 
+.app--modal-open .dock {
+  display: none;
+}
+
 .dock__container {
   display: flex;
   flex-direction: column;
@@ -78,6 +82,10 @@
     backdrop-filter: blur(12px) saturate(1.2);
     -webkit-backdrop-filter: blur(12px) saturate(1.2);
     border-bottom: 1px solid var(--border);
+  }
+
+  .app--modal-open .dock {
+    display: none;
   }
 
   .dock__container {
