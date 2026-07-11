@@ -53,3 +53,10 @@
 .app--modal-open::after {
   opacity: 0 !important;
 }
+
+@media (max-width: 768px) {
+  .app::before,
+  .app::after {
+    display: none;
+  }
+}

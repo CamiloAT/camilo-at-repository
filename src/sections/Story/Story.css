@@ -176,7 +176,18 @@
     gap: var(--space-lg);
   }
 
+  .story__visual-col {
+    margin-top: 0;
+    align-items: center;
+  }
+
   .story__visual-frame {
-    aspect-ratio: 16/9;
+    width: 150px;
+    height: 150px;
+  }
+
+  .story__stats {
+    width: 100%;
+    max-width: 300px;
   }
 }
