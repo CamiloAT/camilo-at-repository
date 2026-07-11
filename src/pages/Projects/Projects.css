@@ -449,8 +449,9 @@
   line-height: 1.6;
   color: #a3a3a3;
   padding: 1rem 1.2rem;
-  overflow-x: auto;
-  white-space: pre;
+  overflow-x: hidden;
+  white-space: pre-wrap;
+  word-break: break-word;
   margin: 0;
 }
 
@@ -551,7 +552,18 @@
 
 @media (max-width: 768px) {
   .projects-page {
-    padding: var(--space-lg) var(--space-md) var(--space-3xl);
+    padding: calc(3.5rem + var(--space-lg)) var(--space-md) var(--space-3xl);
+  }
+
+  .projects-page__back {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-bottom: var(--space-md);
+  }
+
+  .projects-page__title {
+    padding-top: 0;
   }
 
   .projects-page__item {
@@ -561,6 +573,11 @@
 
   .projects-page__item-actions {
     width: 100%;
+  }
+
+  .projects-page__item-btn {
+    flex: 1;
+    justify-content: center;
   }
 
   .projects-page__modal-overlay {
@@ -629,6 +646,27 @@
     text-align: left;
   }
 
+  .projects-page__modal-cli {
+    margin-bottom: var(--space-lg);
+  }
+
+  .projects-page__modal-cli-header {
+    padding: 0.5rem 0.8rem;
+  }
+
+  .projects-page__modal-cli-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .projects-page__modal-cli-body {
+    font-size: 0.5rem;
+    line-height: 1.5;
+    padding: 0.7rem 0.8rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
   .projects-page__modal-tags {
     gap: 0.4rem;
     margin-bottom: var(--space-lg);
@@ -657,10 +695,5 @@
   .projects-page__modal-collaborator {
     font-size: 0.75rem;
     padding: 0.3em 0.6em;
-  }
-
-  .projects-page__modal-cli-body {
-    font-size: 0.55rem;
-    padding: 0.8rem;
   }
 }
