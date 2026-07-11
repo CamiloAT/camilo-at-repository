@@ -3,21 +3,24 @@ import { motion, AnimatePresence } from 'framer-motion'
 import './Dock.css'
 
 const NAV_ITEMS = [
-  { id: 'hero', label: 'I', title: 'Intro', offset: 80 },
-  { id: 'story', label: 'II', title: 'About Me', offset: -100 },
-  { id: 'work', label: 'III', title: 'My Projects', offset: 10 },
-  { id: 'craft', label: 'IV', title: 'Tech Stack', offset: -30 },
-  { id: 'interests', label: 'V', title: 'Interests', offset: -35 },
-  { id: 'certifications', label: 'VI', title: 'Certifications', offset: -45 },
+  { id: 'hero', label: 'I', title: 'Intro', offset: 80, mobileOffset: 80 },
+  { id: 'story', label: 'II', title: 'About Me', offset: -100, mobileOffset: 20 },
+  { id: 'work', label: 'III', title: 'My Projects', offset: 10, mobileOffset: 10 },
+  { id: 'craft', label: 'IV', title: 'Tech Stack', offset: -30, mobileOffset: 20 },
+  { id: 'interests', label: 'V', title: 'Interests', offset: -35, mobileOffset: 20 },
+  { id: 'certifications', label: 'VI', title: 'Certifications', offset: -45, mobileOffset: 20 },
 ]
+
+const MOBILE_BREAKPOINT = 768
 
 const Dock = () => {
   const [hovered, setHovered] = useState(null)
 
-  const scrollTo = (id, offset) => {
+  const scrollTo = (id, offset, mobileOffset) => {
     const el = document.getElementById(id)
     if (el) {
-      const y = el.getBoundingClientRect().top + window.scrollY - offset
+      const activeOffset = window.innerWidth <= MOBILE_BREAKPOINT ? mobileOffset : offset
+      const y = el.getBoundingClientRect().top + window.scrollY - activeOffset
       window.scrollTo({ top: y, behavior: 'smooth' })
     }
   }
@@ -31,7 +34,7 @@ const Dock = () => {
             className="dock__item"
             onMouseEnter={() => setHovered(item.id)}
             onMouseLeave={() => setHovered(null)}
-            onClick={() => scrollTo(item.id, item.offset)}
+            onClick={() => scrollTo(item.id, item.offset, item.mobileOffset)}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 2.5 + index * 0.1 }}
