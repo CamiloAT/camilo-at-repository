@@ -114,6 +114,28 @@ const Interests = () => {
     return () => { document.body.style.overflow = '' }
   }, [isPlaylistOpen])
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const player = document.querySelector('.floating-player')
+      const footer = document.querySelector('.outro__footer-line')
+      if (!player || !footer) return
+
+      const footerRect = footer.getBoundingClientRect()
+      const safeGap = 16
+
+      if (footerRect.top < window.innerHeight) {
+        const bottomPx = window.innerHeight - footerRect.top + safeGap
+        player.style.setProperty('bottom', `${bottomPx}px`, 'important')
+      } else {
+        player.style.removeProperty('bottom')
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const playTrack = useCallback((index) => {
     if (!playerRef.current) return
     setCurrentTrack(index)
