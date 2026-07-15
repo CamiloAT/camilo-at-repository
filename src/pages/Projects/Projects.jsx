@@ -353,7 +353,10 @@ const Projects = () => {
     if (hintedProject === project.id) {
       openModal(project)
     } else {
-      setHintPos({ x: e.clientX + window.scrollX, y: e.clientY + window.scrollY })
+      const vpW = window.innerWidth
+      const x = e.clientX + window.scrollX
+      const y = e.clientY + window.scrollY
+      setHintPos({ x, y, vpW })
       setHintedProject(project.id)
       clearTimeout(hintTimerRef.current)
       hintTimerRef.current = setTimeout(() => setHintedProject(null), 2500)
@@ -375,6 +378,12 @@ const Projects = () => {
     if (selectedProject && selectedProject.images.length > 0) {
       setCurrentImageIndex((prev) => (prev - 1 + selectedProject.images.length) % selectedProject.images.length)
     }
+  }
+
+  const getHintTransform = (x, vpW) => {
+    if (x + 180 > vpW) return 'translate(-100%, -50%)'
+    if (x < 80) return 'translate(0%, -50%)'
+    return 'translate(-50%, -50%)'
   }
 
   return (
@@ -603,11 +612,11 @@ const Projects = () => {
           {hintedProject && (
             <motion.div
               className="projects-page__item-hint"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              style={{ left: hintPos.x, top: hintPos.y }}
+              style={{ left: hintPos.x, top: hintPos.y, transform: getHintTransform(hintPos.x, hintPos.vpW) }}
             >
               Click de nuevo para más información
             </motion.div>
