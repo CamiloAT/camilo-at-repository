@@ -12,16 +12,16 @@ const INTERESTS = [
 ]
 
 const PLAYLIST = [
-  { title: 'Doma', artist: 'Josean Log', youtubeId: 'e8qJWFrZFCI' },
-  { title: 'La Graciosa', artist: 'Quevedo', youtubeId: 'LZPLBSRnxSY' },
-  { title: 'Own My Mind', artist: 'Maneskin', youtubeId: 'ABbggjVQm6A' },
-  { title: 'El Hexxo', artist: 'Feid', youtubeId: 'Qn1rDfuWYOg' },
-  { title: 'Te Falle', artist: 'Christian Nodal', youtubeId: 'oZmXYET4qQU' },
-  { title: 'Understand', artist: 'BoyWithUke', youtubeId: 'T2fjQrsKbAM' },
-  { title: 'Stolen Dance', artist: 'Milky Chance', youtubeId: 'iX-QaNzd-0Y' },
-  { title: 'Guaya', artist: 'Lucho RK & Quevedo', youtubeId: 'fwRkmQul8G4' },
-  { title: '1000 Canciones', artist: 'Alvaro Diaz', youtubeId: 'WG8q1wrvQHE' },
-  { title: 'Tus Vueltas', artist: 'Milo J', youtubeId: 'SOXYr6CsUJU' },
+  { title: 'Doma', artist: 'Josean Log', youtubeId: 'jg6Qtx1Tkzk' },
+  { title: 'La Graciosa', artist: 'Quevedo', youtubeId: 'Kev3r6W4TPo' },
+  { title: 'Own My Mind', artist: 'Maneskin', youtubeId: 'LRApJG5WdIg' },
+  { title: 'El Hexxo', artist: 'Feid', youtubeId: 'hgSNktUvOuc' },
+  { title: 'El Amigo', artist: 'Christian Nodal', youtubeId: 'ieFIxLHcixs' },
+  { title: 'Understand', artist: 'BoyWithUke', youtubeId: 'euD9Mr2M7Mw' },
+  { title: 'Stolen Dance', artist: 'Milky Chance', youtubeId: 'JnYr3wlVF08' },
+  { title: 'Guaya', artist: 'Lucho RK & Quevedo', youtubeId: 'OlV-SJEd_oo' },
+  { title: 'Te vi en mis pesadillas', artist: 'Alvaro Diaz', youtubeId: 'LIBVl4uSmC4' },
+  { title: 'Tus Vueltas', artist: 'Milo J', youtubeId: 'PmVejpfw_yU' },
 ]
 
 const Equalizer = () => (
