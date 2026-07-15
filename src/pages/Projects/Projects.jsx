@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import './Projects.css'
@@ -333,6 +334,9 @@ Dependencias: ninguna (stdlib puro)`,
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [hintedProject, setHintedProject] = useState(null)
+  const [hintPos, setHintPos] = useState({ x: 0, y: 0 })
+  const hintTimerRef = useRef(null)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -341,7 +345,19 @@ const Projects = () => {
   const openModal = (project) => {
     setSelectedProject(project)
     setCurrentImageIndex(0)
+    setHintedProject(null)
     document.body.style.overflow = 'hidden'
+  }
+
+  const handleProjectClick = (project, e) => {
+    if (hintedProject === project.id) {
+      openModal(project)
+    } else {
+      setHintPos({ x: e.clientX + window.scrollX, y: e.clientY + window.scrollY })
+      setHintedProject(project.id)
+      clearTimeout(hintTimerRef.current)
+      hintTimerRef.current = setTimeout(() => setHintedProject(null), 2500)
+    }
   }
 
   const closeModal = () => {
@@ -390,6 +406,7 @@ const Projects = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
               style={{ '--project-accent': project.accent }}
+              onClick={(e) => handleProjectClick(project, e)}
             >
               <div className="projects-page__item-line" />
               <div className="projects-page__item-left">
@@ -580,6 +597,24 @@ const Projects = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {createPortal(
+        <AnimatePresence>
+          {hintedProject && (
+            <motion.div
+              className="projects-page__item-hint"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.2 }}
+              style={{ left: hintPos.x, top: hintPos.y }}
+            >
+              Click de nuevo para más información
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </div>
   )
 }

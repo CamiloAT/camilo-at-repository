@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import './Work.css'
@@ -132,6 +133,9 @@ const Work = () => {
   const [selectedProject, setSelectedProject] = useState(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [carouselIndices, setCarouselIndices] = useState({})
+  const [hintedProject, setHintedProject] = useState(null)
+  const [hintPos, setHintPos] = useState({ x: 0, y: 0 })
+  const hintTimerRef = useRef(null)
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
@@ -158,8 +162,20 @@ const Work = () => {
   const openModal = (project) => {
     setSelectedProject(project)
     setCurrentImageIndex(0)
+    setHintedProject(null)
     document.body.style.overflow = 'hidden'
     document.querySelector('.app')?.classList.add('app--modal-open')
+  }
+
+  const handleProjectClick = (project, e) => {
+    if (hintedProject === project.id) {
+      openModal(project)
+    } else {
+      setHintPos({ x: e.clientX + window.scrollX, y: e.clientY + window.scrollY })
+      setHintedProject(project.id)
+      clearTimeout(hintTimerRef.current)
+      hintTimerRef.current = setTimeout(() => setHintedProject(null), 2500)
+    }
   }
 
   const closeModal = () => {
@@ -217,6 +233,7 @@ const Work = () => {
               transition={{ duration: 0.7, delay: index * 0.15 }}
               onMouseEnter={() => setActiveProject(project.id)}
               onMouseLeave={() => setActiveProject(null)}
+              onClick={(e) => handleProjectClick(project, e)}
               style={{ '--project-accent': project.accent, '--project-gradient': project.gradient || '' }}
             >
               <div className="work__project-left">
@@ -470,6 +487,24 @@ const Work = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {createPortal(
+        <AnimatePresence>
+          {hintedProject && (
+            <motion.div
+              className="work__project-hint"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.2 }}
+              style={{ left: hintPos.x, top: hintPos.y }}
+            >
+              Click de nuevo para más información
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </section>
   )
 }
