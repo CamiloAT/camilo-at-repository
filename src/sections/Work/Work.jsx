@@ -273,7 +273,7 @@ const Work = () => {
                       className="work__project-btn"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      onClick={() => openModal(project)}
+                      onClick={(e) => { e.stopPropagation(); openModal(project) }}
                     >
                       <span className="work__project-btn-text">More Info</span>
                     </motion.button>

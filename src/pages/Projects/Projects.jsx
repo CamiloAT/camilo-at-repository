@@ -442,7 +442,7 @@ const Projects = () => {
                   className="projects-page__item-btn"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => openModal(project)}
+                  onClick={(e) => { e.stopPropagation(); openModal(project) }}
                 >
                   More Info
                 </motion.button>
