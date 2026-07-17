@@ -681,10 +681,10 @@
   animation: equalizer 0.8s ease-in-out infinite alternate;
 }
 
-.equalizer__bar:nth-child(1) { height: 40%; animation-delay: 0s; }
-.equalizer__bar:nth-child(2) { height: 70%; animation-delay: 0.15s; }
-.equalizer__bar:nth-child(3) { height: 50%; animation-delay: 0.3s; }
-.equalizer__bar:nth-child(4) { height: 90%; animation-delay: 0.45s; }
+.equalizer__bar:nth-child(1) { height: 40%; animation-delay: 0.3s; }
+.equalizer__bar:nth-child(2) { height: 70%; animation-delay: 0s; }
+.equalizer__bar:nth-child(3) { height: 50%; animation-delay: 0.45s; }
+.equalizer__bar:nth-child(4) { height: 90%; animation-delay: 0.15s; }
 
 @keyframes equalizer {
   0% { height: 20%; }
