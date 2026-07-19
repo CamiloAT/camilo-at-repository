@@ -177,10 +177,23 @@
     order: 1;
   }
 
+  .outro__name {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  .outro__pseudonym {
+    font-size: 0.68rem;
+  }
+
   .outro__footer-right {
     align-items: center;
     gap: var(--space-sm);
     order: 2;
+  }
+
+  .outro__social {
+    width: 28px;
+    height: 28px;
   }
 
   .outro__footer-center {
