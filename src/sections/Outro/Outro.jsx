@@ -75,6 +75,11 @@ const Outro = () => {
           </motion.p>
         </div>
 
+        <div className="outro__footer-center">
+          <p className="outro__copy-detail">Todos los derechos reservados</p>
+          <p className="outro__copy">© 2026</p>
+        </div>
+
         <div className="outro__footer-right">
           <motion.div
             className="outro__socials"
@@ -100,8 +105,6 @@ const Outro = () => {
               <SiGithub size={18} />
             </a>
           </motion.div>
-
-          <p className="outro__copy">© 2026 · Todos los derechos reservados</p>
         </div>
       </div>
     </footer>

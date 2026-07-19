@@ -70,14 +70,22 @@
 }
 
 .outro__footer {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
 }
 
 .outro__footer-left {
   display: flex;
   flex-direction: column;
+}
+
+.outro__footer-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: var(--space-md);
 }
 
 .outro__name {
@@ -100,8 +108,9 @@
 
 .outro__footer-right {
   display: flex;
-  align-items: center;
-  gap: var(--space-lg);
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.6rem;
 }
 
 .outro__socials {
@@ -135,6 +144,14 @@
   letter-spacing: 0.1em;
 }
 
+.outro__copy-detail {
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+}
+
 @media (max-width: 768px) {
   .outro {
     padding: var(--space-xl) var(--gutter) var(--space-md);
@@ -149,20 +166,26 @@
   }
 
   .outro__footer {
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: 1fr;
     gap: var(--space-lg);
     text-align: center;
   }
 
   .outro__footer-left {
+    justify-items: center;
     align-items: center;
+    order: 1;
   }
 
   .outro__footer-right {
-    flex-direction: column;
     align-items: center;
     gap: var(--space-sm);
+    order: 2;
+  }
+
+  .outro__footer-center {
+    margin-top: 0;
+    order: 3;
   }
 
   .easter-egg__card {
